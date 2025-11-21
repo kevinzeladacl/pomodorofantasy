@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct pomofantasyApp: App {
+    @StateObject private var timerManager = TimerManager()
+
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        MenuBarExtra {
+            PomodoroView(manager: timerManager)
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: timerManager.mode == .work ? "timer" : "cup.and.saucer.fill")
+                Text(timerManager.timeString)
+                    .monospacedDigit()
+            }
         }
+        .menuBarExtraStyle(.window)
     }
 }
